@@ -22,7 +22,7 @@
         "laravelcollective/html": "^6.3",
         "maatwebsite/excel": "^3.1",
         "olimortimer/laravelshoppingcart": "^6.0",
-        "shurjopayv2/laravel8": "dev-main",
+        "shurjopayv2/laravel9": "dev-main",
         "spatie/laravel-permission": "^5.7"
     },
     "require-dev": {
