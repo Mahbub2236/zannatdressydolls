@@ -1,39 +1,4 @@
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-jobs:
-  ci:
-    name: Build and Test
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2'
-        extensions: mbstring, pdo, pdo_mysql, xml, ctype, curl
-        coverage: none
-
-    - name: Cache Composer packages
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-
-    - name: Install Dependencies
-      run: composer install --prefer-dist --no-progress --no-interaction
-
-  deploy:
+deploy:
     name: Deploy to VPS
     needs: ci
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
