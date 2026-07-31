@@ -46,6 +46,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Verify SSH Private Key
+      shell: bash
+      run: |
+        cat > /tmp/id_ed25519 << 'EOF'
+        ${{ secrets.SSH_PRIVATE_KEY }}
+        EOF
+      
+          chmod 600 /tmp/id_ed25519
+      
+          echo "===== FILE INFO ====="
+          wc -l /tmp/id_ed25519
+          wc -c /tmp/id_ed25519
+      
+          echo "===== FIRST ====="
+          head -1 /tmp/id_ed25519
+      
+          echo "===== LAST ====="
+          tail -1 /tmp/id_ed25519
+      
+          echo "===== TEST ====="
+          ssh-keygen -y -f /tmp/id_ed25519
     - name: Execute Remote SSH Commands
       uses: appleboy/ssh-action@v1.0.0
       with:
