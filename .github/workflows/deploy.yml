@@ -9,9 +9,15 @@ on:
 jobs:
   ci:
     name: Build and Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latests
 
     steps:
+    - name: Debug Secrets
+      run: |
+        echo "Host: ${{ secrets.SSH_HOST }}"
+        echo "User: ${{ secrets.SSH_USERNAME }}"
+        echo "Port: ${{ secrets.SSH_PORT }}"
+        echo "Key length: $(printf '%s' '${{ secrets.SSH_PRIVATE_KEY }}' | wc -c)"
     - name: Checkout Code
       uses: actions/checkout@v4
 
